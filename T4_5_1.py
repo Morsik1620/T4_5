@@ -89,23 +89,24 @@ def insertion_sort(arr):
         arr[j + 1] = key
 
 
-list_sizes = [10, 100, 1000] # Размеры списков для тестирования
+list_sizes = [10, 100, 1000, 5000]  # Добавим размер для лучшего сравнения
+
 def quick_sort_time(arr):
     quick_sort(arr.copy())  # Сортирую копию, чтобы не изменять исходный список
 
 def insertion_sort_time(arr):
     insertion_sort(arr.copy())  # Сортирую копию, чтобы не изменять исходный список
 
-for range_list in list_sizes:
-    arr = [random.randint(0, 1000) for _ in range(range_list)] # создаю список случайных чисел
-    print(arr)
-    quick_sort_time_take = timeit.timeit(stmt = lambda: quick_sort_time(arr), number=100) # Измеряем время выполнения линейного поиска
-    insertion_sort_take = timeit.timeit(stmt = lambda: insertion_sort_time(arr), number=100) # Измеряем время выполнения бинарного поиска
 
-
-# Запуск тестов и вывод результатов
 print("__________________________________________________")
 print("List Size | Quicksort Time | Insertion Sort Time |")
 print("----------|----------------|---------------------|")
+
 for size in list_sizes:
+    arr = [random.randint(0, 1000) for _ in range(size)]  # создаю список случайных чисел
+    # print(arr)  #  Убрали вывод, т.к. он не нужен для больших списков
+
+    quick_sort_time_take = timeit.timeit(stmt = lambda: quick_sort_time(arr), number=100) # Измеряем время выполнения Quicksort
+    insertion_sort_take = timeit.timeit(stmt = lambda: insertion_sort_time(arr), number=100) # Измеряем время выполнения Insertion Sort
+
     print(f"{size:10}| {quick_sort_time_take:15f}| {insertion_sort_take:20f}|")
